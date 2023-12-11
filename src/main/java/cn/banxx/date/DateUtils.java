@@ -7,18 +7,15 @@ import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
- * 时间工具类.
- *
- * @author : Ban
- * @createTime: 2023-11-29  14:31
- * @version : 1.0
- * @since : 1.0
+ * 时间工具类
  */
 
 public class DateUtils {
 
     /**
      * 判断选择的日期是否是本日
+     * @param time 时间
+     * @return 返回boolean结果
      */
     public static boolean isToday(Date time) {
         return isThisTime(time, "yyyy-MM-dd");
@@ -26,6 +23,8 @@ public class DateUtils {
 
     /**
      * 判断选择的日期是否是本月
+     * @param time 时间
+     * @return 返回boolean结果
      */
     public static boolean isMonth(Date time) {
         return isThisTime(time, "yyyy-MM");
@@ -33,6 +32,8 @@ public class DateUtils {
 
     /**
      * 判断选择的日期是否是今年
+     * @param time 时间
+     * @return 返回boolean结果
      */
     public static boolean isYear(Date time) {
         return isThisTime(time, "yyyy");
@@ -40,8 +41,8 @@ public class DateUtils {
 
     /**
      * 公共方法 <br/>
-     * time - 参数时间  <br/>
-     * pattern - 匹配规则
+     * @param time 参数时间  <br/>
+     * @param pattern 匹配规则
      */
     private static boolean isThisTime(Date time, String pattern) {
         SimpleDateFormat sdf = new SimpleDateFormat(pattern);
@@ -53,9 +54,8 @@ public class DateUtils {
     /**
      * 计算传入时间加上一年后与今天的时间差<br/>
      * 一般用于计算会员剩余时间.
-     * @author: Ban
-     * @date: 2023/12/9 1:05
-     * @param: [date]
+     * @param date 时间
+     * @return 返回Long类型时间天数结果
      */
     public static Long dateTo(Date date) {
         //将传过来的 date 转 localDate
@@ -66,7 +66,4 @@ public class DateUtils {
         return ChronoUnit.DAYS.between(LocalDate.now(),nextYears);
     }
 
-
-    public static void main(String[] args) {
-    }
 }

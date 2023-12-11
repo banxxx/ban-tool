@@ -1,18 +1,12 @@
 package cn.banxx.date;
 
 import cn.banxx.constant.LunarConstant;
-import cn.banxx.number.NumberUtils;
 
 import java.util.*;
 import java.util.regex.Matcher;
 
 /**
- * 农历日期工具类.
- *
- * @author : Ban
- * @version : 1.0
- * @createTime: 2023-12-08  13:27
- * @since : 1.0
+ * 农历日期工具类
  */
 
 public class LunarUtils {
@@ -41,11 +35,8 @@ public class LunarUtils {
 
     /**
      * 获得所有二十四节气
-     *
-     * @author: Ban
-     * @date: 2023/12/8 14:29
-     * @param: [year]
-     * @return: java.util.List<java.util.Date>
+     * @param year 年份时间
+     * @return int[]
      */
     public static List<Date> allSolarTerm(int year) {
         Date[] temp;
@@ -60,11 +51,9 @@ public class LunarUtils {
 
     /**
      * 获得某天前后两个节气序号
-     *
-     * @author: Ban
-     * @date: 2023/12/8 14:30
-     * @param: [year, date]
-     * @return: int[]
+     * @param year 年份
+     * @param date 时间
+     * @return int[]数组
      */
     public static int[] getNearSolarTerm(int year, Date date) {
         List<Date> solarTerm = allSolarTerm(year);
@@ -87,11 +76,8 @@ public class LunarUtils {
 
     /**
      * 获得某年中所有节气Date
-     *
-     * @author: Ban
-     * @date: 2023/12/8 14:31
-     * @param: [year]
-     * @return: java.util.Date[]
+     * @param year 年份
+     * @return: 时间Date[]
      */
     public static Date[] solarTermList(int year) {
         Date[] value = new Date[LunarConstant.SOLAR_TERM.length];
@@ -692,7 +678,6 @@ public class LunarUtils {
 
     /**
      * 黑色星期五
-     *
      * @return 是否黑色星期五
      */
     public boolean isBlackFriday() {
@@ -719,9 +704,8 @@ public class LunarUtils {
     }
 
     /**
-     * 取得农历节日名称
+     * 取得农历节日名称,如果不是节日返回空串
      *
-     * @return 农历节日名称, 如果不是节日返回空串
      */
     public String getLFestivalName() {
         return this.lFestivalName;
@@ -730,7 +714,6 @@ public class LunarUtils {
     /**
      * 是否是农历节日
      *
-     * @return 是否是农历节日
      */
     public boolean isLFestival() {
         if (!this.isFind) {
@@ -742,7 +725,6 @@ public class LunarUtils {
     /**
      * 是否是公历节日
      *
-     * @return 是否是公历节日
      */
     public boolean isSFestival() {
         if (!this.isFind) {
@@ -754,7 +736,6 @@ public class LunarUtils {
     /**
      * 是否是节日
      *
-     * @return 是否是节日
      */
     public boolean isFestival() {
         return this.isSFestival() || this.isLFestival();
@@ -762,8 +743,6 @@ public class LunarUtils {
 
     /**
      * 是否是放假日
-     *
-     * @return 是否是放假日
      */
     public boolean isHoliday() {
         if (!this.isFind) {
@@ -773,9 +752,7 @@ public class LunarUtils {
     }
 
     /**
-     * 其它日期说明
-     *
-     * @return 日期说明(如 : 民国2年)
+     * 其它日期说明(如 : 民国2年)
      */
     public String getDescription() {
         if (!this.isFind) {
@@ -830,7 +807,7 @@ public class LunarUtils {
      * @param lunarMonth 农历月份(数字)
      * @return 农历月份字符串 (例:正)
      */
-    private static String getLunarMonthString(int lunarMonth) {
+    public static String getLunarMonthString(int lunarMonth) {
         String lunarMonthString = "";
         if (lunarMonth == 1) {
             lunarMonthString = LunarConstant.LUNAR_STRING_TWO[4];
@@ -851,7 +828,7 @@ public class LunarUtils {
      * @param lunarDay 农历日(数字)
      * @return 农历日字符串 (例: 廿一)
      */
-    private static String getLunarDayString(int lunarDay) {
+    public static String getLunarDayString(int lunarDay) {
         if ((lunarDay < 1) || (lunarDay > 30)) {
             return "";
         }

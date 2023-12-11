@@ -21,6 +21,13 @@
     <description>tool for myself</description>
     <url>https://github.com/banxxx/ban-tool</url>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.9</version>
+        </dependency>
+    </dependencies>
     <!--开源协议...-->
     <licenses>
         <license>

@@ -3,14 +3,10 @@ package cn.banxx.number;
 import cn.banxx.constant.NumberConstant;
 
 import java.util.Objects;
+import java.util.UUID;
 
 /**
- * 数字工具类.
- *
- * @author : Ban
- * @version : 1.0
- * @createTime: 2023-12-08  15:24
- * @since : 1.0
+ * 数字工具类
  */
 
 public class NumberUtils {
@@ -18,59 +14,59 @@ public class NumberUtils {
     /**
      * 数字转化为小写的汉字
      *
-     * @param num 将要转化的数字
+     * @param number 将要转化的数字
      * @return 小写汉字
      */
-    public static String toChineseLower(Object num) {
-        return format(num, NumberConstant.NUM_LOWER, NumberConstant.UNIT_LOWER);
+    public static String toChineseLower(Object number) {
+        return format(number, NumberConstant.NUM_LOWER, NumberConstant.UNIT_LOWER);
     }
 
     /**
      * 数字转化为大写的汉字
      *
-     * @param num 将要转化的数字
+     * @param number 将要转化的数字
      * @return 大写汉字
      */
-    public static String toChineseUpper(Object num) {
-        return format(num, NumberConstant.NUM_UPPER, NumberConstant.UNIT_UPPER);
+    public static String toChineseUpper(Object number) {
+        return format(number, NumberConstant.NUM_UPPER, NumberConstant.UNIT_UPPER);
     }
 
     /**
      * 数字转化为小写的纯汉字(不带进制)
      *
-     * @param num 将要转化的数字
+     * @param number 将要转化的数字
      * @return 小写汉字
      */
-    public static String toPureChineseLower(Object num) {
-        return format(num, NumberConstant.NUM_LOWER, null);
+    public static String toPureChineseLower(Object number) {
+        return format(number, NumberConstant.NUM_LOWER, null);
     }
 
     /**
      * 数字转化为大写的纯汉字(不带进制)
      *
-     * @param num 将要转化的数字
+     * @param number 将要转化的数字
      * @return 大写汉字
      */
-    public static String toPureChineseUpper(Object num) {
-        return format(num, NumberConstant.NUM_UPPER, null);
+    public static String toPureChineseUpper(Object number) {
+        return format(number, NumberConstant.NUM_UPPER, null);
     }
 
     /**
      * 格式化数字
      *
-     * @param num      原数字
+     * @param number      原数字
      * @param numArray 数字大小写数组
      * @param unit     单位权值
      * @return
      */
-    private static String format(Object num, String[] numArray, String[] unit) {
-        if (!NumberConstant.PROMISS_TYPES.contains(num.getClass().getSimpleName().toUpperCase())) {
+    private static String format(Object number, String[] numArray, String[] unit) {
+        if (!NumberConstant.PROMISS_TYPES.contains(number.getClass().getSimpleName().toUpperCase())) {
             throw new RuntimeException("不支持的格式类型");
         }
         //获取整数部分
-        String intNum = getInt(String.valueOf(num));
+        String intNum = getInt(String.valueOf(number));
         //获取小数部分
-        String decimal = getFraction(String.valueOf(num));
+        String decimal = getFraction(String.valueOf(number));
         //格式化整数部分
         String result = formatIntPart(intNum, numArray, unit);
         //小数部分不为空
@@ -84,20 +80,20 @@ public class NumberUtils {
     /**
      * 格式化整数部分
      *
-     * @param num      整数部分
+     * @param number 整数部分
      * @param numArray 数字大小写数组
      * @return
      */
-    private static String formatIntPart(String num, String[] numArray, String[] unit) {
+    private static String formatIntPart(String number, String[] numArray, String[] unit) {
         StringBuilder sb = new StringBuilder();
         if (Objects.isNull(unit)) {
-            for (char s : num.toCharArray()) {
+            for (char s : number.toCharArray()) {
                 int anInt = Integer.parseInt(String.valueOf(s));
                 sb.append(numArray[anInt]);
             }
         } else {
             //按4位分割成不同的组(不足四位的前面补0)
-            Integer[] intNums = split2IntArray(num);
+            Integer[] intNums = split2IntArray(number);
             boolean zero = false;
             for (int i = 0; i < intNums.length; i++) {
                 //格式化当前4位
@@ -130,7 +126,7 @@ public class NumberUtils {
     /**
      * 格式化小数部分
      *
-     * @param decimal  小数部分
+     * @param decimal 小数部分
      * @param numArray 数字大小写数组
      * @return
      */
@@ -147,13 +143,13 @@ public class NumberUtils {
     /**
      * 获取整数部分
      *
-     * @param num
-     * @return
+     * @param number 数字
+     * @return 整数部分
      */
-    private static String getInt(String num) {
+    private static String getInt(String number) {
         //检查格式
-        checkNum(num);
-        char[] val = String.valueOf(num).toCharArray();
+        checkNum(number);
+        char[] val = String.valueOf(number).toCharArray();
         StringBuilder sb = new StringBuilder();
         int t, s = 0;
         for (char c : val) {
@@ -173,17 +169,17 @@ public class NumberUtils {
     /**
      * 获取小数部分
      *
-     * @param num
-     * @return
+     * @param number 数字
+     * @return 数字小数部分
      */
-    private static String getFraction(String num) {
-        int i = num.lastIndexOf(".");
-        if (num.indexOf(".") != i) {
+    private static String getFraction(String number) {
+        int i = number.lastIndexOf(".");
+        if (number.indexOf(".") != i) {
             throw new RuntimeException("数字格式不正确，最多只能有一位小数点！");
         }
         String fraction = "";
         if (i >= 0) {
-            fraction = getInt(new StringBuffer(num).reverse().toString());
+            fraction = getInt(new StringBuffer(number).reverse().toString());
             if ("0".equals(fraction)) {
                 return "";
             }
@@ -194,20 +190,20 @@ public class NumberUtils {
     /**
      * 检查数字格式
      *
-     * @param num
+     * @param number 数字
      */
-    private static void checkNum(String num) {
-        if (num.indexOf(".") != num.lastIndexOf(".")) {
-            throw new RuntimeException("数字[" + num + "]格式不正确!");
+    private static void checkNum(String number) {
+        if (number.indexOf(".") != number.lastIndexOf(".")) {
+            throw new RuntimeException("数字[" + number + "]格式不正确!");
         }
-        if (num.indexOf("-") != num.lastIndexOf("-") || num.lastIndexOf("-") > 0) {
-            throw new RuntimeException("数字[" + num + "]格式不正确！");
+        if (number.indexOf("-") != number.lastIndexOf("-") || number.lastIndexOf("-") > 0) {
+            throw new RuntimeException("数字[" + number + "]格式不正确！");
         }
-        if (num.indexOf("+") != num.lastIndexOf("+")) {
-            throw new RuntimeException("数字[" + num + "]格式不正确！");
+        if (number.indexOf("+") != number.lastIndexOf("+")) {
+            throw new RuntimeException("数字[" + number + "]格式不正确！");
         }
-        if (num.replaceAll("[\\d|\\.|\\-|\\+]", "").length() > 0) {
-            throw new RuntimeException("数字[" + num + "]格式不正确！");
+        if (number.replaceAll("[\\d|\\.|\\-|\\+]", "").length() > 0) {
+            throw new RuntimeException("数字[" + number + "]格式不正确！");
         }
     }
 
@@ -215,19 +211,19 @@ public class NumberUtils {
     /**
      * 分割数字，每4位一组
      *
-     * @param num
+     * @param number 数字
      * @return
      */
-    private static Integer[] split2IntArray(String num) {
-        String prev = num.substring(0, num.length() % 4);
-        String stuff = num.substring(num.length() % 4);
+    private static Integer[] split2IntArray(String number) {
+        String prev = number.substring(0, number.length() % 4);
+        String stuff = number.substring(number.length() % 4);
         if (!"".equals(prev)) {
-            num = String.format("%04d", Integer.valueOf(prev)) + stuff;
+            number = String.format("%04d", Integer.valueOf(prev)) + stuff;
         }
-        Integer[] ints = new Integer[num.length() / 4];
+        Integer[] ints = new Integer[number.length() / 4];
         int idx = 0;
-        for (int i = 0; i < num.length(); i += 4) {
-            String n = num.substring(i, i + 4);
+        for (int i = 0; i < number.length(); i += 4) {
+            String n = number.substring(i, i + 4);
             ints[idx++] = Integer.valueOf(n);
         }
         return ints;
@@ -237,12 +233,13 @@ public class NumberUtils {
     /**
      * 格式化4位整数
      *
-     * @param num
-     * @param numArray
-     * @return
+     * @param number 传参数字
+     * @param numArray 数字大小写数组
+     * @param unit 单位权值
+     * @return 返回结果
      */
-    private static String formatInt(int num, String[] numArray, String[] unit) {
-        char[] val = String.valueOf(num).toCharArray();
+    private static String formatInt(int number, String[] numArray, String[] unit) {
+        char[] val = String.valueOf(number).toCharArray();
         int len = val.length;
         StringBuilder sb = new StringBuilder();
         boolean isZero = false;
@@ -263,4 +260,24 @@ public class NumberUtils {
         return sb.toString();
     }
 
+    /**
+     * 获取UUID,去除 -
+     * @param prefix 前缀
+     * @return 返回结果
+     */
+    public static String UUID(String prefix){
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        if(!Objects.isNull(prefix)){
+            uuid = prefix+uuid;
+        }
+        return uuid;
+    }
+
+    /**
+     * 获取UUID
+     * @return 返回结果
+     */
+    public static String UUID(){
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
 }
