@@ -1,5 +1,7 @@
-import cn.banxx.date.LunarUtils;
-import cn.banxx.string.StringUtils;
+import cn.banxx.file.TencentCosUtil;
+
+import javax.annotation.Resource;
+import java.io.UnsupportedEncodingException;
 
 /**
  * .
@@ -11,8 +13,8 @@ import cn.banxx.string.StringUtils;
  */
 public class Test {
 
-    public static void main(String[] args) {
-        boolean aaa = StringUtils.containChinese("哈尼");
-        System.out.println(aaa);
+    @org.junit.Test
+    public void play() throws UnsupportedEncodingException {
+        TencentCosUtil.getTemporaryAccessCredentials();
     }
 }

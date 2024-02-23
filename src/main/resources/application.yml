@@ -1,0 +1,12 @@
+#--------------------------通用配置-------------------------
+tencent:
+  cos:
+    secretId:
+    secretKey:
+    region: ap-nanjing
+    bucketName: cloud-1255855400
+    projectName:
+    common:
+    imageSize:
+    prefixDomain:
+    expiration:

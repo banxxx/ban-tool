@@ -12,12 +12,7 @@ public enum LunarEnums {
 
     /**
      * 年份时间
-     * @author: Ban
-     * @date: 2023/12/8 14:42
-     * @param:
-     * @return:
      */
-    // 1874
     First(1874,"1874"),
     Second(1909,"1908"),
     Third(1908,"1908"),
